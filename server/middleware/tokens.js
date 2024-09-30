@@ -8,14 +8,12 @@ export const generateToken = (req, res, next) => {
         res.status(404).json({ message: "Invalid request" });
     }
 
-    jwt.sign(
-        {
+    jwt.sign({
             userIP,
             userID,
             username
         },
-        process.env.JWT_SECRET,
-        {
+        process.env.JWT_SECRET, {
             expiresIn: process.env.JWT_EXPIRE
         },
         (err, token) => {
