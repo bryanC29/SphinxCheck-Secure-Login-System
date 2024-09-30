@@ -1,0 +1,5 @@
+- Rename the `example.env` file to `.env` file
+- Set all the required environment variables in the `.env` file
+- Open terminal and type `npm intall`
+- Open terminal and type `npm start`
+- By default, the server backend will host on port `2131`
