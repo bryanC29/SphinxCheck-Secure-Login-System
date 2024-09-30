@@ -1,5 +1,7 @@
 - Rename the `example.env` file to `.env` file
 - Set all the required environment variables in the `.env` file
 - Open terminal and type `npm intall`
-- Open terminal and type `npm start`
+- Open terminal and type `npm run dev` to start development server
+- Open terminal and type `npm run serve` to start production server
+- Open terminal and type `npm start` to start server
 - By default, the server backend will host on port `2131`
