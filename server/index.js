@@ -3,8 +3,11 @@ import cors from 'cors';
 import { rateLimit } from 'express-rate-limit'
 import { RedisStore } from 'rate-limit-redis'
 import RedisClient from 'ioredis'
+import cookieParser from 'cookie-parser';
 
 const app = express();
+
+app.use(cookieParser(process.env.PRIVATE_PASSPHRASE));
 
 app.use(cors({
     'origin': '*',
