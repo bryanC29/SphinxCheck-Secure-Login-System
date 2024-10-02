@@ -1,25 +1,17 @@
 import jwt from "jsonwebtoken";
 
-export const generateToken = (userIP, userID) => {
+export const generateToken = async (userIP, userID) => {
 
-    if (!userIP || !userID || !username) {
+    if (!userIP || !userID) {
         return null;
     }
 
-    jwt.sign({
-            userIP,
-            userID,
-        },
-        process.env.JWT_SECRET, {
-            expiresIn: process.env.JWT_EXPIRE
-        },
-        (err, token) => {
-            if (err) {
-                return null;
-            }
-            return token;
-        }
+    const token = await jwt.sign(
+        { userIP, userID },
+        process.env.JWT_SECRET,
+        { expiresIn: process.env.JWT_EXPIRE }
     );
+    return token;
 }
 
 export const verifyToken = (token) => {
@@ -28,7 +20,7 @@ export const verifyToken = (token) => {
         return null;
     }
 
-    jwt.verify(token, JWT_SECRET, (err, user) => {
+    jwt.verify(token, process.env.JWT_SECRET, (err, user) => {
         if (err) {
             return null;
         }
