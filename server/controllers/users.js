@@ -13,7 +13,7 @@ export const signup = async (req, res) => {
         const existingUser = await Users.findOne({ email })
 
         if(existingUser)
-            return res.status(400).json({ message: 'User already exists' });
+            return res.status(400).json({ message: 'Failed to register User. Please try again later' });
 
         const salt = await bcrypt.genSalt(10);
         const hashedPassword = await bcrypt.hash(password, salt);
@@ -41,7 +41,7 @@ export const signup = async (req, res) => {
     
     catch (err) {
         console.error(err);
-        return res.status(500).json({ message: 'Failed to create user' });
+        return res.status(500).json({ message: 'Failed to create user. Please try again later' });
     }
 }
 
@@ -59,7 +59,7 @@ export const login = async (req, res) => {
         user.password = undefined;
         
         const ip = (req.ip == "::1") ? "127.0.0.1" : req.ip;
-        const token = generateToken(ip, user._id);
+        const token = await generateToken(ip, user._id);
 
         res.cookie('token', token, {
             httpOnly: true,
@@ -72,7 +72,7 @@ export const login = async (req, res) => {
 
     catch(err) {
         console.error(err);
-        return res.status(500).json({ message: 'Failed to login' });
+        return res.status(500).json({ message: 'Failed to login. Please try again later' });
     }
 }
 
@@ -86,6 +86,6 @@ export const logout = (req, res) => {
 
     catch(err) {
         console.error(err);
-        return res.status(500).json({ message: 'Failed to logout' });
+        return res.status(500).json({ message: 'Failed to logout. Please try again later' });
     }
 }
